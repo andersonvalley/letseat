@@ -1,0 +1,28 @@
+.footer {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 30px 20px;
+  color: #919191;
+  margin-left: 10px;
+  font-size: 1.3rem;
+
+  span {
+    margin-right: 15px;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+
+    li {
+      margin-right: 15px;
+
+      a {
+        transition: color 0.2s ease-in-out;
+        &:hover {
+          color: #242424;
+        }
+      }
+    }
+  }
+}

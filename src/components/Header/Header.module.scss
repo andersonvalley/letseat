@@ -1,0 +1,244 @@
+.header {
+  width: 100%;
+
+  margin: 0 auto;
+  padding: 20px 30px;
+
+  &__container {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(219, 219, 219);
+    display: flex;
+    align-items: center;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    transition: all 200ms ease-in-out;
+  }
+
+  &__logo {
+    flex-grow: 1;
+
+    a {
+      display: flex;
+      align-items: center;
+      width: 140px;
+      p {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #404158;
+        margin-left: 10px;
+      }
+    }
+
+    a img {
+      width: 30px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+
+    li {
+      margin-left: 10px;
+
+      a {
+        color: rgb(145, 145, 145);
+        transition: color 200ms ease-in-out;
+        margin-left: 10px;
+        font-size: 1.3rem;
+
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+
+  &__social {
+    display: flex;
+    margin-left: 20px;
+
+    li {
+      padding-left: 10px;
+    }
+
+    li a {
+      background-image: url("../../img/soc-icons-sprite.svg");
+      background-repeat: no-repeat;
+      width: 30px;
+      height: 30px;
+      padding: 0 6px;
+      display: block;
+      transition: background-position-y 200ms ease-in-out;
+
+      &:hover {
+        background-position-y: -32px;
+      }
+    }
+
+    .fb a {
+      background-position: 0 0;
+    }
+
+    .vk a {
+      background-position: -44px 0;
+    }
+
+    .inst a {
+      background-position: -132px 0;
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .burger {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 15 !important;
+    z-index: 20;
+
+    &__item {
+      z-index: 20;
+      height: 4px;
+      width: 30px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 50px;
+      background-color: #4a2545;
+      transform: translate(-50%, -50%) rotate(0deg);
+      transition: all ease 0.5s;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        height: inherit;
+        border-radius: inherit;
+        background-color: inherit;
+        margin: auto;
+        width: 50%;
+        transition: all ease 0.5s;
+      }
+      &::before {
+        top: -10px;
+        left: 0;
+        transform-origin: left;
+      }
+      &::after {
+        bottom: -10px;
+        right: 0;
+        transform-origin: right;
+      }
+    }
+  }
+
+  .burger__item.open {
+    transform: translate(-50%, -50%) rotate(135deg);
+    &::before {
+      top: 0;
+      transform: translateX(100%) rotate(-90deg);
+    }
+    &::after {
+      bottom: 0;
+      transform: translateX(-100%) rotate(-90deg);
+    }
+  }
+
+  .header {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .header__wrapper {
+    position: fixed;
+    right: -500px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 200px;
+    background-color: rgb(248, 248, 248);
+    z-index: 10;
+
+    .header__nav {
+      margin-bottom: 20px;
+      margin-top: 50%;
+    }
+
+    .header__list {
+      flex-direction: column;
+      li {
+        margin-bottom: 10px;
+
+        a {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .header__social {
+      margin-left: 0;
+    }
+  }
+
+  .burger.open ~ .header__wrapper {
+    right: 0;
+  }
+}
+
+.header.fixed {
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 5px 0px 0px 0px;
+  width: 100%;
+  box-shadow: 0 0 15px 0 rgba(131, 131, 131, 0.671);
+
+  z-index: 10;
+
+  .header__container {
+    padding-left: 20px;
+    padding-bottom: 5px;
+    border: none;
+  }
+
+  .header__logo {
+    flex-grow: 0;
+
+    a {
+      width: 50px;
+
+      img {
+        width: 50px;
+      }
+      p {
+        display: none;
+      }
+    }
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__social {
+    display: none;
+  }
+
+  .categories ul li a {
+    font-size: 1.6rem;
+  }
+
+  .categories {
+    max-width: 100%;
+  }
+}
