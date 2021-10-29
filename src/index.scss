@@ -20,11 +20,12 @@ body {
   box-sizing: border-box;
 }
 
+.main {
+  padding: 0 10px;
+}
+
 .content {
   display: flex;
-  max-width: 100%;
-  align-items: flex-start;
   justify-content: space-between;
-  padding-left: 20px;
   position: relative;
 }

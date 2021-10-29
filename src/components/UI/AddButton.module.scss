@@ -1,0 +1,44 @@
+.btn__add {
+  background: #f2f4f7;
+  border: none;
+  border-radius: 32px;
+  width: 110px;
+  transition: background 200ms ease-in-out;
+
+  &:hover {
+    background: darken($color: #f2f4f7, $amount: 5);
+  }
+
+  .decor {
+    font-weight: 400;
+    position: relative;
+    line-height: 2.2;
+    top: -2px;
+
+    &::after {
+      content: "+";
+      margin-left: 15px;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+  }
+}
+
+.btn__add.btn__added {
+  background: #42d484;
+  color: #fff;
+
+  .decor {
+    font-weight: 400;
+    position: relative;
+    line-height: 2.1;
+    top: -2px;
+    margin-left: -10px;
+
+    &::after {
+      content: "✓";
+      font-weight: 700;
+      font-size: 2rem;
+    }
+  }
+}

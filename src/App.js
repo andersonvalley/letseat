@@ -1,84 +1,125 @@
 import React from 'react'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+
 import Header from './components/Header/Index'
 import Footer from './components/Footer/Index'
-import Slider from './components/Slider/Index'
-import Categories from './components/Categories/Index'
-import Goods from './components/Goods/Index'
+import Products from './components/Products/Index'
 import Cart from './components/Cart/Index'
+import Popup from './components/UI/Popup'
+import {
+  setProducts,
+  addToCart,
+  setLoaded,
+  increment,
+  decrement,
+  deleteItem,
+} from './redux/actions/products'
 
 function App() {
-  const [products, setProducts] = React.useState([])
-  const [cartItem, setCartItem] = React.useState([])
-  const [navScroll, setNavScroll] = React.useState(false)
+  const [totalPrice, setTotalPrice] = React.useState()
+  const [showPopup, setShowPopup] = React.useState(false)
+  const [dataToPopup, setDataToPopup] = React.useState([])
 
-  const content = React.useRef()
+  const { isLoading } = useSelector((store) => store.productsReducer)
+  const { cartItems } = useSelector((store) => store.cartReducer)
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
-    axios
-      .get('https://6171b13dc20f3a001705fe8b.mockapi.io/products')
-      .then(({ data }) => {
-        setProducts(data)
-      })
-  }, [])
+    async function start() {
+      await axios
+        .get('https://6171b13dc20f3a001705fe8b.mockapi.io/products')
+        .then(({ data }) => {
+          dispatch(setProducts(data))
+          dispatch(setLoaded(false))
+        })
+    }
 
-  function deleteItemFromCart(index) {
-    cartItem.splice(index, 1)
-    setCartItem((prev) => {
-      localStorage.setItem('cart', JSON.stringify([...prev]))
-      return [...prev]
+    start()
+
+    const products = JSON.parse(localStorage.getItem('cartItems'))
+    if (!products) return
+    products.forEach((item) => {
+      dispatch(addToCart(item))
     })
+  }, [dispatch])
+
+  const showPopupHandler = (e, product) => {
+    e.preventDefault()
+    setShowPopup(true)
+    setDataToPopup([product])
+  }
+
+  const incrementQuantity = (item) => {
+    dispatch(increment(item))
+  }
+
+  const decrementQuantity = (item, index) => {
+    if (item.quantity <= 1) {
+      dispatch(deleteItem(index))
+
+      if (cartItems.length === 0) {
+        localStorage.removeItem('cartItems')
+      }
+    }
+    dispatch(decrement(item))
+  }
+
+  const addItemToCart = (product) => {
+    product.quantity = 1
+    if (cartItems.find((i) => i.id === product.id)) return
+
+    dispatch(addToCart(product))
+
+    localStorage.setItem('cartItems', JSON.stringify([...cartItems, product]))
   }
 
   React.useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('cart'))
-    if (!items) return
-    items.map((item) => {
-      setCartItem((prev) => {
-        return [...prev, item]
-      })
-      return null
-    })
-  }, [])
+    const products = JSON.parse(localStorage.getItem('cartItems'))
+    if (!products) return
 
-  const addItemToCart = (item) => {
-    item.count = 1
-    setCartItem((prev) => {
-      localStorage.setItem('cart', JSON.stringify([...prev, item]))
-      return [...prev, item]
+    products.forEach((i) => {
+      cartItems.forEach((q) => {
+        if (i.quantity !== q.quantity) {
+          localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        }
+      })
     })
-  }
+
+    let sum = 0
+    for (let item of cartItems) {
+      sum += item.price * item.quantity
+    }
+    setTotalPrice(sum)
+  }, [cartItems])
 
   return (
-    <div className="App">
+    <>
       <Header />
-
       <main className="main">
-        <Slider
-          cartItem={cartItem}
-          addItemToCart={addItemToCart}
-          products={products}
-        />
-        <Categories categories={products} navScroll={navScroll} />
-
-        <div ref={content} className="content">
-          <Goods
-            products={products}
+        <div className="content">
+          {showPopup && (
+            <Popup
+              setShowPopup={setShowPopup}
+              addItemToCart={addItemToCart}
+              dataToPopup={dataToPopup}
+            />
+          )}
+          <Products
+            isLoading={isLoading}
+            showPopupHandler={showPopupHandler}
             addItemToCart={addItemToCart}
-            cartItem={cartItem}
           />
           <Cart
-            content={content}
-            cartItem={cartItem}
-            deleteItemFromCart={deleteItemFromCart}
-            setNavScroll={setNavScroll}
-            setCartItem={setCartItem}
+            incrementQuantity={incrementQuantity}
+            decrementQuantity={decrementQuantity}
+            totalPrice={totalPrice}
           />
         </div>
       </main>
 
       <Footer />
-    </div>
+    </>
   )
 }
 
