@@ -27,3 +27,7 @@ export const deleteItem = (index) => ({
   type: 'DELETE_ITEM_FROM_CART',
   payload: index,
 })
+
+export const deleteItems = () => ({
+  type: 'DELETE_ITEMS',
+})

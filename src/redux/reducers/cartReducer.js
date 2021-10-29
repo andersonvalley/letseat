@@ -14,6 +14,9 @@ export const cartReducer = (state = initialState, action) => {
         newArr,
       }
 
+    case 'DELETE_ITEMS':
+      return { ...state, cartItems: [] }
+
     case 'INCREMENT_ITEM':
       return {
         ...state,

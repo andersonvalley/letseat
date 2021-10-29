@@ -1,13 +1,28 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import CartMakeOrder from '../CartMakeOrder/Index'
-
 import styles from './Cart.module.scss'
+import { deleteItems } from '../../redux/actions/actions'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Cart({ incrementQuantity, decrementQuantity, totalPrice }) {
   const { cartItems } = useSelector((store) => store.cartReducer)
   const [showCart, setShowCart] = React.useState(false)
   const [showMakeOrder, setShowMakeOrder] = React.useState(false)
+  const dispatch = useDispatch()
+  const notify = () => toast("Заказ отправлен! ");
+
+  const [values, setValues] = React.useState({
+    address: '',
+    phone: '',
+    name: '',
+    appartment: '',
+    floor: '',
+    entrance: '',
+    comments: ''
+  })
+
 
   const showCartMobile = () => {
     setShowCart(!showCart)
@@ -15,16 +30,22 @@ function Cart({ incrementQuantity, decrementQuantity, totalPrice }) {
 
   const closeCartMobile = (e) => {
     e.preventDefault()
-
   }
 
   const deliveryInfo = () => {
     setShowMakeOrder(true)
   }
 
+
   const sendData = () => {
-    console.log(cartItems)
+    const data = [values, ...cartItems]
+    console.log(data)
+    setValues({})
+    dispatch(deleteItems())
+    localStorage.removeItem('cartItems')
+    notify()
   }
+
 
   return (
     <>
@@ -35,8 +56,7 @@ function Cart({ incrementQuantity, decrementQuantity, totalPrice }) {
             <span>{cartItems.length === 0 ? '' : cartItems.length}</span>
           </p>
           <div onClick={() => setShowCart(false)} className={styles.cart__close}>+</div>
-          <div onClick={() => setShowMakeOrder(false)} className={styles.cart__back}>{showMakeOrder ? 'назад' : ''}</div>
-
+          <div onClick={() => setShowMakeOrder(false)} className={styles.cart__back}>{showMakeOrder ? '<' : ''}</div>
           <div className={cartItems.length ? [styles.cart__content, styles.cart__content_full].join(' ') : styles.cart__content}>
             {
               cartItems.length
@@ -44,8 +64,14 @@ function Cart({ incrementQuantity, decrementQuantity, totalPrice }) {
                 <>
                   <ul className={styles.cart__products}>
                     {
-                      showMakeOrder ? <CartMakeOrder decrementQuantity={decrementQuantity} incrementQuantity={incrementQuantity} /> :
-
+                      showMakeOrder ?
+                        <CartMakeOrder
+                          setValues={setValues}
+                          values={values}
+                          decrementQuantity={decrementQuantity}
+                          incrementQuantity={incrementQuantity}
+                        />
+                        :
                         cartItems.map((item, index) => {
                           return (
                             <li className={styles.cart__item} key={item.id}>
@@ -67,7 +93,7 @@ function Cart({ incrementQuantity, decrementQuantity, totalPrice }) {
                   </ul>
                   {
                     showMakeOrder ?
-                      <button onClick={sendData} className={styles.cart__btn_order}>
+                      <button onClick={sendData} type='submit' className={styles.cart__btn_order}>
                         <span>Оформить заказ</span>
                         <span className="sum">{totalPrice} ₽</span>
                       </button>
@@ -89,6 +115,9 @@ function Cart({ incrementQuantity, decrementQuantity, totalPrice }) {
         </aside >
       </div >
       <div onClick={showCartMobile} className={styles.mobile}></div>
+
+      <ToastContainer />
+
     </>
   )
 }

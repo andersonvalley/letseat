@@ -7,6 +7,8 @@ import Footer from '../components/Footer/Index'
 import Products from '../components/Products/Index'
 import Cart from '../components/Cart/Index'
 import Popup from '../components/UI/Popup'
+import Slider from '../components/Slider/Slider'
+import Navigation from '../components/Navigation/Index'
 import {
   setProducts,
   addToCart,
@@ -14,15 +16,12 @@ import {
   increment,
   decrement,
   deleteItem,
-} from '../redux/actions/products'
-import Slider from '../components/Slider/Slider'
-import Navigation from '../components/Navigation/Index'
+} from '../redux/actions/actions'
 
 function MainPage() {
   const [totalPrice, setTotalPrice] = React.useState()
   const [showPopup, setShowPopup] = React.useState(false)
   const [dataToPopup, setDataToPopup] = React.useState([])
-
   const { isLoading } = useSelector((store) => store.productsReducer)
   const { cartItems } = useSelector((store) => store.cartReducer)
   const dispatch = useDispatch()
@@ -36,7 +35,6 @@ function MainPage() {
           dispatch(setLoaded(false))
         })
     }
-
     start()
 
     const products = JSON.parse(localStorage.getItem('cartItems'))
@@ -70,16 +68,13 @@ function MainPage() {
   const addItemToCart = (product) => {
     product.quantity = 1
     if (cartItems.find((i) => i.id === product.id)) return
-
     dispatch(addToCart(product))
-
     localStorage.setItem('cartItems', JSON.stringify([...cartItems, product]))
   }
 
   React.useEffect(() => {
     const products = JSON.parse(localStorage.getItem('cartItems'))
     if (!products) return
-
     products.forEach((i) => {
       cartItems.forEach((q) => {
         if (i.quantity !== q.quantity) {
@@ -100,7 +95,6 @@ function MainPage() {
       <Header />
       <main className="main">
         <Slider addItemToCart={addItemToCart} />
-
         <Navigation />
         <div className="content">
           {showPopup && (

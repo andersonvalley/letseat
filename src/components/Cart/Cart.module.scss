@@ -100,6 +100,7 @@
   &__products {
     position: relative;
     overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   &__item {
@@ -164,9 +165,6 @@
 }
 
 .cart_width {
-  position: sticky;
-  z-index: 5000;
-
   .cart__products {
     width: 100%;
   }
@@ -191,13 +189,11 @@
 }
 
 @media (max-width: 950px) {
-  .cart_width.cart {
-    width: 95%;
-  }
   .cart {
     height: 450px;
     top: 0px;
-    width: 92%;
+    right: 0;
+    width: 100%;
     position: relative;
 
     &__close {
@@ -211,7 +207,7 @@
     }
 
     &__products {
-      width: 110%;
+      width: 100%;
     }
 
     &__btn_count {
@@ -259,16 +255,13 @@
 }
 
 @media (max-width: 574px) {
-  .cart {
-    width: 95%;
-  }
   .cart_width.cart {
-    width: 95%;
+    width: 100%;
+    height: 550px;
   }
 
-  .cart__cart_products {
-    right: 10px;
-    position: absolute;
+  .cart__products {
+    width: 110%;
   }
 
   .cart__title {
@@ -281,20 +274,18 @@
 
   .cart__back {
     font-size: 1.6rem;
-    right: 50px;
+    right: 60px;
+    top: 25px;
   }
 
   .cart__close {
-    font-size: 3.6rem;
-    top: 20px;
+    font-size: 4.7rem;
+    top: 10px;
   }
 }
 
 @media (max-width: 350px) {
   .cart {
-    width: 315px !important;
-    right: 5px;
-
     &__products {
       width: 140%;
     }
