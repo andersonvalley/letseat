@@ -19,6 +19,7 @@ function Popup({ setShowPopup, addItemToCart, dataToPopup }) {
   return (
     <div onClick={(e) => closePopup(e)} className={styles.popup__overlay}>
       <div ref={popup} className={styles.popup}>
+
         <div onClick={() => setShowPopup(false)} className={styles.popup__close}>+</div>
         {
           dataToPopup.map(product => {
@@ -40,10 +41,6 @@ function Popup({ setShowPopup, addItemToCart, dataToPopup }) {
             )
           })
         }
-
-
-
-
 
       </div>
     </div>

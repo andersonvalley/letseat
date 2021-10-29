@@ -1,15 +1,16 @@
 .popup {
-  position: fixed;
+  position: relative;
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0px 0px 32px rgba(41, 41, 41, 0.685);
   z-index: 20;
-  overflow-y: auto;
   border-radius: 28px;
   background: #fff;
   padding: 40px;
   max-width: 650px;
+  overflow-y: scroll;
+  height: 600px;
 
   &__overlay {
     position: fixed;
@@ -58,5 +59,12 @@
 
   span {
     font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .popup {
+    height: 400px;
+    width: 70%;
   }
 }
