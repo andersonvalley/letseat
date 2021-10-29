@@ -18,7 +18,7 @@ function Products({ isLoading, showPopupHandler, addItemToCart }) {
         !isLoading ?
           products.map((items) => {
             return (
-              <div className={styles.products__wrapper} key={items.titleCategory}>
+              <div className={styles.products__wrapper} name={items.linkTo} key={items.titleCategory}>
                 <h3>{items.titleCategory}</h3>
                 <ul className={styles.products__list}>
 

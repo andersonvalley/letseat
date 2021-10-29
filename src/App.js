@@ -15,6 +15,8 @@ import {
   decrement,
   deleteItem,
 } from './redux/actions/products'
+import Slider from './components/Slider/Slider'
+import Navigation from './components/Navigation/Index'
 
 function App() {
   const [totalPrice, setTotalPrice] = React.useState()
@@ -97,6 +99,9 @@ function App() {
     <>
       <Header />
       <main className="main">
+        <Slider addItemToCart={addItemToCart} />
+
+        <Navigation />
         <div className="content">
           {showPopup && (
             <Popup
