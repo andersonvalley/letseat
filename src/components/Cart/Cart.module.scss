@@ -3,7 +3,7 @@
   top: 100px;
   right: 20px;
   margin-top: 100px;
-  z-index: 2;
+  z-index: 2000;
   width: 330px;
   height: 300px;
   border-radius: 32px;
@@ -165,7 +165,7 @@
 
 .cart_width {
   position: sticky;
-  right: 20px;
+  z-index: 5000;
 
   .cart__products {
     width: 100%;
@@ -190,17 +190,14 @@
   width: 550px;
 }
 
-@media (max-width: 574px) {
-  .cart_width.cart {
-    width: 96%;
-  }
-}
-
 @media (max-width: 950px) {
+  .cart_width.cart {
+    width: 95%;
+  }
   .cart {
     height: 450px;
     top: 0px;
-    width: 96%;
+    width: 92%;
     position: relative;
 
     &__close {
@@ -214,7 +211,7 @@
     }
 
     &__products {
-      width: 100%;
+      width: 110%;
     }
 
     &__btn_count {
@@ -230,12 +227,6 @@
     top: 0;
     right: 0;
     z-index: 2000;
-
-    .cart {
-      right: 20px !important;
-      position: absolute !important;
-      z-index: 300 !important;
-    }
   }
 
   .hide_cart {
@@ -267,12 +258,57 @@
   }
 }
 
+@media (max-width: 574px) {
+  .cart {
+    width: 95%;
+  }
+  .cart_width.cart {
+    width: 95%;
+  }
+
+  .cart__cart_products {
+    right: 10px;
+    position: absolute;
+  }
+
+  .cart__title {
+    font-size: 2.6rem;
+
+    span {
+      font-size: 3rem;
+    }
+  }
+
+  .cart__back {
+    font-size: 1.6rem;
+    right: 50px;
+  }
+
+  .cart__close {
+    font-size: 3.6rem;
+    top: 20px;
+  }
+}
+
 @media (max-width: 350px) {
   .cart {
-    width: 300px !important;
+    width: 315px !important;
+    right: 5px;
 
     &__products {
-      width: 120%;
+      width: 140%;
+    }
+
+    &__item {
+      &:hover {
+        background-color: transparent;
+      }
+
+      .btn__add {
+        opacity: 1;
+        width: 60px !important;
+        right: 30px;
+      }
     }
   }
 }

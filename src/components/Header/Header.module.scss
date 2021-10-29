@@ -141,6 +141,7 @@
 
   .burger__item.open {
     transform: translate(-50%, -50%) rotate(135deg);
+    z-index: 1001;
     &::before {
       top: 0;
       transform: translateX(100%) rotate(-90deg);

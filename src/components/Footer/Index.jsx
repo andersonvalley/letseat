@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from './Footer.module.scss'
 
 function Index() {
@@ -7,10 +8,10 @@ function Index() {
       <span>2021 let's eat ©</span>
       <ul>
         <li>
-          <a href="/">О доставке</a>
+          <Link to="/delivery">О доставке</Link>
         </li>
         <li>
-          <a href="/">Оферта</a>
+          <Link to="/about">Оферта</Link>
         </li>
       </ul>
     </footer>

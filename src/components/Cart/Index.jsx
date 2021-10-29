@@ -22,10 +22,14 @@ function Cart({ incrementQuantity, decrementQuantity, totalPrice }) {
     setShowMakeOrder(true)
   }
 
+  const sendData = () => {
+    console.log(cartItems)
+  }
+
   return (
     <>
       <div onClick={(e) => closeCartMobile(e)} className={showCart ? styles.show_cart : styles.hide_cart}>
-        <aside className={cartItems.length ? [styles.cart, styles.cart__cart_products, showMakeOrder ? styles.cart_width : ''].join(' ') : styles.cart}>
+        <aside className={cartItems.length ? [styles.cart, styles.cart__cart_products, showMakeOrder ? styles.cart_width : styles.cart, styles.cart__cart_products].join(' ') : styles.cart}>
           <p className={styles.cart__title}>
             {showMakeOrder ? 'Ваш заказ' : 'Корзина'}
             <span>{cartItems.length === 0 ? '' : cartItems.length}</span>
@@ -61,11 +65,18 @@ function Cart({ incrementQuantity, decrementQuantity, totalPrice }) {
                     }
 
                   </ul>
-
-                  <button onClick={deliveryInfo} className={styles.cart__btn_order}>
-                    <span>Заказать</span>
-                    <span className="sum">{totalPrice} ₽</span>
-                  </button>
+                  {
+                    showMakeOrder ?
+                      <button onClick={sendData} className={styles.cart__btn_order}>
+                        <span>Оформить заказ</span>
+                        <span className="sum">{totalPrice} ₽</span>
+                      </button>
+                      :
+                      <button onClick={deliveryInfo} className={styles.cart__btn_order}>
+                        <span>Оформить</span>
+                        <span className="sum">{totalPrice} ₽</span>
+                      </button>
+                  }
                 </>
                 :
                 <>

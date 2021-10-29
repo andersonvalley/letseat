@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styles from './Header.module.scss'
+import { Link } from 'react-router-dom'
 
 function Index() {
   const [burgerOpen, setBurgerOpen] = useState(false)
@@ -17,26 +18,26 @@ function Index() {
         </div>
 
         <div className={styles.header__logo}>
-          <a href="/">
+          <Link to="/">
             <img src="/logo.svg" width="100" alt="logo lets eat" />
             <p>let's eat</p>
-          </a>
+          </Link>
         </div>
 
         <div className={styles.header__wrapper}>
           <nav className={styles.header__nav}>
             <ul className={styles.header__list}>
               <li>
-                <a href="/">Рестораны</a>
+                <Link to="/restorans">Рестораны</Link>
               </li>
               <li>
-                <a href="/">О доставке</a>
+                <Link to="/delivery">О доставке</Link>
               </li>
               <li>
-                <a href="/">Оферта</a>
+                <Link to="/about">Оферта</Link>
               </li>
               <li>
-                <a href="/">Поддержка</a>
+                <Link to="/support">Поддержка</Link>
               </li>
             </ul>
           </nav>

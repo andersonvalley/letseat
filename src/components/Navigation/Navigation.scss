@@ -3,6 +3,11 @@
   align-items: center;
   padding: 10px 0;
   overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
+  border-bottom: 1px solid rgb(240, 240, 240);
 
   .swiper-container {
     margin-left: 10px !important;
